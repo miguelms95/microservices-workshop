@@ -1,52 +1,22 @@
-# Makefile for Spring Boot Eureka Server
+# Makefile for Spring Boot app
 
-# Variables
-APP_NAME = eureka-server
-JAR_FILE = target/$(APP_NAME).jar
+help: ## show make targets
+	@awk 'BEGIN {FS = ":.*?## "} /[a-zA-Z_-]+:.*?## / {sub("\\\\n",sprintf("\n%22c"," "), $$2);printf " \033[36m%-20s\033[0m  %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-# Commands
-.PHONY: all clean build run test package stop
-
-all: build run
-
-## Clean - Remove the target directory
-clean:
+clean: ## Clean - Remove the target directory
 	./mvnw clean
 
-## Build - Compile and build the project
-build:
+build: ## Build - Compile and build the project
 	./mvnw clean package
 
-## Run - Execute the Spring Boot application
-run: $(JAR_FILE)
-	java -jar $(JAR_FILE)
+run: ## Run - Execute the Spring Boot application
+	mvn spring-boot:run
 
-## Test - Run all tests
-test:
+test: ## Test - Run all tests
 	./mvnw test
 
-## Package - Package the application into a jar file
-package:
+package: ## Package - Package the application into a jar file
 	./mvnw package
 
-## Stop - Stop the running Spring Boot application
-stop:
-	@pkill -f 'java -jar $(JAR_FILE)' || true
 
-## Help - Show available commands
-help:
-	@echo "Makefile Commands for Spring Boot Eureka Server"
-	@echo ""
-	@echo "Usage: make [command]"
-	@echo ""
-	@echo "Commands:"
-	@echo "  all        - Build and run the application"
-	@echo "  clean      - Clean the target directory"
-	@echo "  build      - Build the project"
-	@echo "  run        - Run the Spring Boot application"
-	@echo "  test       - Run all tests"
-	@echo "  package    - Package the application into a jar file"
-	@echo "  stop       - Stop the running application"
-	@echo "  help       - Show this help message"
-
-$(JAR_FILE): build
+.PHONY: clean build run test package
