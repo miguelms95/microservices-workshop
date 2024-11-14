@@ -1,0 +1,28 @@
+server:
+  port: 8080  # Gateway port
+
+spring:
+  application:
+    name: gateway  # Gateway service name
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true  # Enable service discovery with Eureka
+          lower-case-service-id: true  # Ensures service names are matched in lowercase
+      routes:
+        - id: order-service
+          uri: lb://ORDER-MICRO  # Load-balance to instances of order-service
+          predicates:
+            - Path=/order/**  # Route requests starting with /order to order-service
+        - id: user-service
+          uri: lb://USER-MICRO  # Load-balance to instances of user-service
+          predicates:
+            - Path=/user/**  # Route requests starting with /user to user-service
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/  # Replace with your Eureka server URL
+  instance:
+    prefer-ip-address: true  # Optional: use IP address for service registration
