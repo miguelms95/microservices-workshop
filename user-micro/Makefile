@@ -18,5 +18,13 @@ test: ## Test - Run all tests
 package: ## Package - Package the application into a jar file
 	./mvnw package
 
+docker-build:
+	docker build -t user-micro .
+
+docker-run: docker-build ## run docker image
+	 docker run --rm --name user-micro-1 -p 8081:8081 user-micro
+
+docker-stop: ## stop docker image
+	docker stop user-micro-1
 
 .PHONY: clean build run test package
