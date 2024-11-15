@@ -19,12 +19,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/user-micro/api/",
-									"protocol": "http",
+									"raw": "{{host}}/user-micro/api/",
 									"host": [
-										"localhost"
+										"{{host}}"
 									],
-									"port": "8080",
 									"path": [
 										"user-micro",
 										"api",
@@ -40,12 +38,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/user-micro/api/users",
-									"protocol": "http",
+									"raw": "{{host}}/user-micro/api/users",
 									"host": [
-										"localhost"
+										"{{host}}"
 									],
-									"port": "8080",
 									"path": [
 										"user-micro",
 										"api",
@@ -61,12 +57,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/user-micro/api/users/1",
-									"protocol": "http",
+									"raw": "{{host}}/user-micro/api/users/1",
 									"host": [
-										"localhost"
+										"{{host}}"
 									],
-									"port": "8080",
 									"path": [
 										"user-micro",
 										"api",
@@ -88,12 +82,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/order-micro/",
-									"protocol": "http",
+									"raw": "{{host}}/order-micro/",
 									"host": [
-										"localhost"
+										"{{host}}"
 									],
-									"port": "8080",
 									"path": [
 										"order-micro",
 										""
