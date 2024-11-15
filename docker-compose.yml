@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  eureka-server:
+    container_name: eureka-server
+    build: ./eureka-server
+    ports:
+      - "8761:8761"
+    environment:
+      - EUREKA_CLIENT_REGISTER_WITH_EUREKA=false
+      - EUREKA_CLIENT_FETCH_REGISTRY=false
+      - SERVER_PORT=8761
+    networks:
+      - spring-net
+
+  gateway:
+    build: ./gateway
+    ports:
+      - "8080:8080"
+    environment:
+      - eureka.client.service-url.defaultZone=http:///eureka-server:8761/eureka
+    depends_on:
+      - eureka-server
+    networks:
+      - spring-net
+
+  order-micro:
+    build: ./order-micro
+    ports:
+      - "8082:8082"
+    environment:
+      - eureka.client.service-url.defaultZone=http:///eureka-server:8761/eureka
+    depends_on:
+      - eureka-server
+    networks:
+      - spring-net
+
+  user-micro:
+    build: ./user-micro
+    ports:
+      - "8081:8081"
+    environment:
+      - eureka.client.service-url.defaultZone=http:///eureka-server:8761/eureka
+    depends_on:
+      - eureka-server
+    networks:
+      - spring-net
+#  user-micro-2:
+#    build: ./user-micro
+#    ports:
+#      - "8083:8083"
+#    environment:
+#      - eureka.client.service-url.defaultZone=http:///eureka-server:8761/eureka
+#      - server.port=8083
+#    depends_on:
+#      - eureka-server
+#    networks:
+#      - spring-net
+
+networks:
+  spring-net:
+    driver: bridge
