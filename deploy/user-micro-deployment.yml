@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-micro
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: user-micro
+  template:
+    metadata:
+      labels:
+        app: user-micro
+    spec:
+      containers:
+        - name: user-micro
+          image: user-micro:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8081
+          env:
+            - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+              value: "http://eureka-service:8761/eureka/"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-micro
+spec:
+  selector:
+    app: user-micro
+  ports:
+    - port: 8081
+      targetPort: 8081
+  type: ClusterIP

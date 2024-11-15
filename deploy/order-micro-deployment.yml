@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-micro
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order-micro
+  template:
+    metadata:
+      labels:
+        app: order-micro
+    spec:
+      containers:
+        - name: order-micro
+          image: order-micro:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8082
+          env:
+            - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+              value: "http://eureka-service:8761/eureka/"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-micro
+spec:
+  selector:
+    app: order-micro
+  ports:
+    - port: 8082
+      targetPort: 8082
+  type: ClusterIP
