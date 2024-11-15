@@ -1,0 +1,12 @@
+global:
+  scrape_interval: 1s  # Scrape metrics every second
+
+scrape_configs:
+  - job_name: 'user-micro'
+    static_configs:
+      - targets: [ 'host.docker.internal:8081' ]  # use docker host alias
+    metrics_path: '/actuator/prometheus'
+  - job_name: 'order-micro'
+    static_configs:
+      - targets: [ 'host.docker.internal:8082' ]  # use docker host alias
+    metrics_path: '/actuator/prometheus'
