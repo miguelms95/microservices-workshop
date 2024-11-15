@@ -45,17 +45,6 @@ services:
       - eureka-server
     networks:
       - spring-net
-#  user-micro-2:
-#    build: ./user-micro
-#    ports:
-#      - "8083:8083"
-#    environment:
-#      - eureka.client.service-url.defaultZone=http:///eureka-server:8761/eureka
-#      - server.port=8083
-#    depends_on:
-#      - eureka-server
-#    networks:
-#      - spring-net
 
 networks:
   spring-net:
