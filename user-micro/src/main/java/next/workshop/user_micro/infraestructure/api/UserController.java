@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -21,6 +23,8 @@ public class UserController {
         this.userService = userService;
     }
 
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+
     @GetMapping(value = "/")
     public String getHome() {
         logger.info("request - home \"/\"");
@@ -29,13 +33,13 @@ public class UserController {
 
     @GetMapping(value = "/users")
     public List<User> getUsers() {
-        logger.info("request - getUsers");
+        logger.info("request - getUsers at {}", LocalDateTime.now().format(formatter));
         return userService.getUsers();
     }
 
     @GetMapping("/users/{id}")
     public User getUserById(@PathVariable String id) {
-        logger.info("request - getUserById {}", id);
+        logger.info("request - getUserById {} at {}", id, LocalDateTime.now().format(formatter));
         return userService.getUserById(Long.parseLong(id));
     }
 
