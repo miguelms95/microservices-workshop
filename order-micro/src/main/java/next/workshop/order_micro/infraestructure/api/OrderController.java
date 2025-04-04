@@ -5,7 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @RestController
 public class OrderController {
@@ -14,7 +15,9 @@ public class OrderController {
 
     @GetMapping(value = "/")
     public String getHome() {
-        logger.info("request - home \"/\"");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+
+        logger.info("request - order \"/\" at {}", LocalDateTime.now().format(formatter));
         return "{\"msg\":\"Hello world from ORDER micro!\"}";
     }
 
